@@ -21,6 +21,80 @@ st.markdown("""
  --card:#0b1328;
  --card-border:#1f2a44;
  --card-text:#f8fafc;
+ --text-main:#0f172a;
+ --text-soft:#334155;
+ --surface-a:rgba(255,255,255,0.84);
+ --surface-b:rgba(255,255,255,0.92);
+ --surface-c:rgba(255,255,255,0.72);
+ --surface-border:rgba(30,41,59,0.12);
+ --nav-border:rgba(51,65,85,0.22);
+ --nav-text:#0f172a;
+ --nav-bg-a:rgba(255,255,255,0.96);
+ --nav-bg-b:rgba(248,250,252,0.92);
+ --nav-bg-c:rgba(219,234,254,0.96);
+ --nav-hover-border:rgba(14,165,233,0.65);
+ --nav-hover-a:rgba(240,249,255,0.98);
+ --nav-hover-b:rgba(224,242,254,0.95);
+ --nav-hover-c:rgba(186,230,253,0.98);
+}
+
+/* Streamlit explicit theme selection support */
+html[data-theme="light"],
+body[data-theme="light"],
+[data-theme="light"] {
+ --bg-a:#f7f4ef;
+ --bg-b:#e7eef8;
+ --text-main:#0f172a;
+ --text-soft:#334155;
+ --surface-a:rgba(255,255,255,0.84);
+ --surface-b:rgba(255,255,255,0.92);
+ --surface-c:rgba(255,255,255,0.72);
+ --surface-border:rgba(30,41,59,0.12);
+}
+
+html[data-theme="dark"],
+body[data-theme="dark"],
+[data-theme="dark"] {
+ --bg-a:#0b1220;
+ --bg-b:#101c33;
+ --text-main:#e2e8f0;
+ --text-soft:#cbd5e1;
+ --surface-a:rgba(15,23,42,0.74);
+ --surface-b:rgba(15,23,42,0.86);
+ --surface-c:rgba(15,23,42,0.70);
+ --surface-border:rgba(148,163,184,0.22);
+ --nav-border:rgba(148,163,184,0.34);
+ --nav-text:#e2e8f0;
+ --nav-bg-a:rgba(15,23,42,0.90);
+ --nav-bg-b:rgba(30,41,59,0.82);
+ --nav-bg-c:rgba(14,116,144,0.56);
+ --nav-hover-border:rgba(56,189,248,0.75);
+ --nav-hover-a:rgba(15,23,42,0.96);
+ --nav-hover-b:rgba(30,41,59,0.92);
+ --nav-hover-c:rgba(8,145,178,0.70);
+}
+
+/* System mode fallback when explicit theme attrs are absent */
+@media (prefers-color-scheme: dark) {
+ :root:not([data-theme="light"]):not([data-theme="dark"]) {
+  --bg-a:#0b1220;
+  --bg-b:#101c33;
+  --text-main:#e2e8f0;
+  --text-soft:#cbd5e1;
+  --surface-a:rgba(15,23,42,0.74);
+  --surface-b:rgba(15,23,42,0.86);
+  --surface-c:rgba(15,23,42,0.70);
+  --surface-border:rgba(148,163,184,0.22);
+    --nav-border:rgba(148,163,184,0.34);
+    --nav-text:#e2e8f0;
+    --nav-bg-a:rgba(15,23,42,0.90);
+    --nav-bg-b:rgba(30,41,59,0.82);
+    --nav-bg-c:rgba(14,116,144,0.56);
+    --nav-hover-border:rgba(56,189,248,0.75);
+    --nav-hover-a:rgba(15,23,42,0.96);
+    --nav-hover-b:rgba(30,41,59,0.92);
+    --nav-hover-c:rgba(8,145,178,0.70);
+ }
 }
 
 [data-testid="stAppViewContainer"] {
@@ -102,8 +176,8 @@ st.markdown("""
 
 .insight-card {
  font-family:'Manrope', sans-serif;
- background:rgba(255,255,255,0.84);
- border:1px solid rgba(30,41,59,0.12);
+ background:var(--surface-a);
+ border:1px solid var(--surface-border);
  border-radius:16px;
  padding:16px;
  box-shadow:0 8px 24px rgba(15,23,42,0.10);
@@ -113,14 +187,14 @@ st.markdown("""
 
 .insight-title {
  margin:0 0 8px;
- color:#0f172a;
+ color:var(--text-main);
  font-size:1.02rem;
  font-weight:800;
 }
 
 .insight-value {
  margin:0;
- color:#1e293b;
+ color:var(--text-main);
  font-size:1.15rem;
  font-weight:700;
 }
@@ -128,14 +202,14 @@ st.markdown("""
 .hero-tagline {
  text-align:center;
  margin-top:-8px;
- color:#334155;
+ color:var(--text-soft);
  font-weight:600;
 }
 
 .page-banner {
  font-family:'Manrope', sans-serif;
- border:1px solid rgba(30,41,59,0.12);
- background:linear-gradient(120deg, rgba(255,255,255,0.92), rgba(255,255,255,0.72));
+ border:1px solid var(--surface-border);
+ background:linear-gradient(120deg, var(--surface-b), var(--surface-c));
  border-radius:14px;
  padding:14px 16px;
  margin:4px 0 16px;
@@ -144,23 +218,124 @@ st.markdown("""
 
 .page-title {
  font-size:1.25rem;
- color:#0f172a;
+ color:var(--text-main);
  font-weight:800;
  margin:0;
 }
 
 .page-subtitle {
  margin-top:4px;
- color:#475569;
+ color:var(--text-soft);
  font-weight:600;
  font-size:0.95rem;
+}
+
+.home-section-title {
+ color:var(--text-main);
+ font-family:'Manrope', sans-serif;
+ font-weight:800;
+ font-size:1.25rem;
+ margin:10px 0 12px;
+}
+
+.home-insights {
+ margin-top:8px;
+ padding:12px 16px;
+ border:1px solid var(--surface-border);
+ border-radius:12px;
+ background:linear-gradient(120deg, var(--surface-b), var(--surface-c));
+}
+
+.home-insights ul {
+ margin:0;
+ padding-left:18px;
+}
+
+.home-insights li {
+ color:var(--text-soft);
+ font-weight:600;
+ margin:6px 0;
+}
+
+/* Default action buttons (Update/Add/Delete/Confirm/Cancel) */
+div[data-testid="stButton"] > button {
+ color:var(--text-main) !important;
+ background:linear-gradient(120deg, var(--surface-b), var(--surface-c)) !important;
+ border:1px solid var(--surface-border) !important;
+ border-radius:12px;
+ font-weight:700;
+}
+
+div[data-testid="stButton"] > button:hover {
+ color:var(--text-main) !important;
+ border-color:var(--nav-hover-border) !important;
+ box-shadow:0 8px 18px rgba(14,165,233,0.18);
+}
+
+div[data-testid="stButton"] > button p,
+div[data-testid="stButton"] > button span {
+ color:var(--text-main) !important;
+}
+
+/* Link buttons (e.g., Open Link) */
+div[data-testid="stLinkButton"] a {
+ color:var(--text-main) !important;
+ background:linear-gradient(120deg, var(--surface-b), var(--surface-c)) !important;
+ border:1px solid var(--surface-border) !important;
+ border-radius:12px;
+ font-weight:700;
+}
+
+div[data-testid="stLinkButton"] a:hover {
+ color:var(--text-main) !important;
+ border-color:var(--nav-hover-border) !important;
+ box-shadow:0 8px 18px rgba(14,165,233,0.18);
+}
+
+/* Ensure form and list text stays readable across all theme modes */
+label,
+div[data-testid="stTextInput"] label,
+div[data-testid="stTextArea"] label,
+div[data-testid="stSelectbox"] label,
+div[data-testid="stNumberInput"] label,
+div[data-testid="stExpander"] summary,
+div[data-testid="stExpander"] summary p,
+div[data-testid="stMarkdownContainer"] p,
+div[data-testid="stCaptionContainer"],
+small {
+ color:var(--text-main) !important;
+}
+
+/* Muted helper copy should still be visible */
+div[data-testid="stCaptionContainer"],
+div[data-testid="stMarkdownContainer"] li,
+div[data-testid="stMarkdownContainer"] span {
+ color:var(--text-soft) !important;
+}
+
+/* Input text should remain high contrast in both light and dark themes */
+div[data-baseweb="input"] input,
+div[data-baseweb="textarea"] textarea {
+ color:var(--text-main) !important;
+}
+
+div[data-baseweb="input"] > div,
+div[data-baseweb="textarea"] > div {
+ background:var(--surface-b) !important;
+ border-color:var(--surface-border) !important;
+}
+
+div[data-testid="stExpanderDetails"],
+div[data-testid="stExpanderDetails"] * {
+ color:var(--text-main) !important;
 }
 
 /* Top navigation: live-touch hover animation */
 div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stButton"] > button {
  border-radius:14px;
- border:1px solid rgba(51,65,85,0.22);
- background:linear-gradient(120deg, rgba(255,255,255,0.96) 0%, rgba(248,250,252,0.92) 42%, rgba(219,234,254,0.96) 50%, rgba(248,250,252,0.92) 58%, rgba(255,255,255,0.96) 100%);
+ border:1px solid var(--nav-border);
+ color:var(--nav-text) !important;
+ background:linear-gradient(120deg, var(--nav-bg-a) 0%, var(--nav-bg-b) 42%, var(--nav-bg-c) 50%, var(--nav-bg-b) 58%, var(--nav-bg-a) 100%);
  background-size:220% 220%;
  box-shadow:0 8px 18px rgba(15,23,42,0.10);
  font-weight:700;
@@ -169,11 +344,17 @@ div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stButton"] >
 
 div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stButton"] > button:hover {
  transform:translateY(-2px) scale(1.02);
- border-color:rgba(14,165,233,0.65);
- background:linear-gradient(120deg, rgba(240,249,255,0.98) 0%, rgba(224,242,254,0.95) 42%, rgba(186,230,253,0.98) 50%, rgba(224,242,254,0.95) 58%, rgba(240,249,255,0.98) 100%);
+ border-color:var(--nav-hover-border);
+ color:var(--nav-text) !important;
+ background:linear-gradient(120deg, var(--nav-hover-a) 0%, var(--nav-hover-b) 42%, var(--nav-hover-c) 50%, var(--nav-hover-b) 58%, var(--nav-hover-a) 100%);
  background-size:230% 230%;
  animation:navSheen 0.9s linear 1;
  box-shadow:0 14px 28px rgba(14,165,233,0.20);
+}
+
+div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stButton"] > button p,
+div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stButton"] > button span {
+ color:var(--nav-text) !important;
 }
 
 div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stButton"] > button:active {
@@ -298,7 +479,7 @@ if page == "Home":
     c3.markdown(f'<div class="card"><h2>{len(training_df)}</h2><p>Training Resources</p></div>', unsafe_allow_html=True)
     c4.markdown(f'<div class="card"><h2>{len(agenda_df)}</h2><p>Agenda Items</p></div>', unsafe_allow_html=True)
 
-    st.subheader("Summary Snapshot")
+    st.markdown('<div class="home-section-title">Summary Snapshot</div>', unsafe_allow_html=True)
 
     s1, s2, s3, s4 = st.columns(4)
 
@@ -319,10 +500,15 @@ if page == "Home":
         unsafe_allow_html=True
     )
 
-    st.markdown("### Quick Insights")
-    st.markdown(f"- {len(license_df)} AI subscriptions tracked in Licenses")
-    st.markdown(f"- {total_problems - solutions_filled} problems still need proposed solutions")
-    st.markdown("- Use Problems page to complete solution fields and improve coverage")
+    st.markdown('<div class="home-section-title">Quick Insights</div>', unsafe_allow_html=True)
+    st.markdown(
+        f'''<div class="home-insights"><ul>
+        <li>{len(license_df)} AI subscriptions tracked in Licenses</li>
+        <li>{total_problems - solutions_filled} problems still need proposed solutions</li>
+        <li>Use Problems page to complete solution fields and improve coverage</li>
+        </ul></div>''',
+        unsafe_allow_html=True,
+    )
 
 # ================= AGENDA =================
 elif page == "Agenda":
@@ -393,7 +579,9 @@ elif page == "Problems":
         col_left, col_right = st.columns([10,1])
 
         with col_left:
-            with st.expander(f"{i+1}. {clean(df.loc[i,'Problem Statement'])[:60]}"):
+            person_name = clean(df.loc[i, "Reporting Person"]).strip() or "Unknown"
+            problem_preview = clean(df.loc[i, 'Problem Statement'])[:60]
+            with st.expander(f"{i+1} - {person_name}: {problem_preview}"):
 
                 row = {}
 
