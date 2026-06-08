@@ -1,9 +1,33 @@
 import streamlit as st
 import pandas as pd
 import openpyxl
+import subprocess
+import sys
 from pathlib import Path
 from io import BytesIO
 from datetime import datetime
+
+
+def _is_streamlit_runtime():
+    try:
+        from streamlit.runtime.scriptrunner import get_script_run_ctx
+        return get_script_run_ctx() is not None
+    except Exception:
+        return False
+
+
+if __name__ == "__main__" and not _is_streamlit_runtime():
+    script_path = Path(__file__).resolve()
+    launch_cmd = [
+        sys.executable,
+        "-m",
+        "streamlit",
+        "run",
+        str(script_path),
+        "--server.headless=false",
+    ]
+    subprocess.run(launch_cmd, check=False)
+    raise SystemExit
 
 st.set_page_config(layout="wide", page_title="AI Jaadu")
 
@@ -21,14 +45,14 @@ st.markdown("""
  --card:#0b1328;
  --card-border:#1f2a44;
  --card-text:#f8fafc;
- --text-main:#0f172a;
- --text-soft:#334155;
+ --text-main:var(--text-color, #0f172a);
+ --text-soft:var(--text-color, #334155);
  --surface-a:rgba(255,255,255,0.84);
  --surface-b:rgba(255,255,255,0.92);
  --surface-c:rgba(255,255,255,0.72);
  --surface-border:rgba(30,41,59,0.12);
  --nav-border:rgba(51,65,85,0.22);
- --nav-text:#0f172a;
+ --nav-text:var(--text-color, #0f172a);
  --nav-bg-a:rgba(255,255,255,0.96);
  --nav-bg-b:rgba(248,250,252,0.92);
  --nav-bg-c:rgba(219,234,254,0.96);
@@ -41,7 +65,10 @@ st.markdown("""
 /* Streamlit explicit theme selection support */
 html[data-theme="light"],
 body[data-theme="light"],
-[data-theme="light"] {
+[data-theme="light"],
+html[data-base-theme="light"],
+body[data-base-theme="light"],
+[data-base-theme="light"] {
  --bg-a:#f7f4ef;
  --bg-b:#e7eef8;
  --text-main:#0f172a;
@@ -54,7 +81,12 @@ body[data-theme="light"],
 
 html[data-theme="dark"],
 body[data-theme="dark"],
-[data-theme="dark"] {
+[data-theme="dark"],
+html[data-base-theme="dark"],
+body[data-base-theme="dark"],
+[data-base-theme="dark"],
+html[class*="dark"],
+body[class*="dark"] {
  --bg-a:#0b1220;
  --bg-b:#101c33;
  --text-main:#e2e8f0;
@@ -74,9 +106,10 @@ body[data-theme="dark"],
  --nav-hover-c:rgba(8,145,178,0.70);
 }
 
-/* System mode fallback when explicit theme attrs are absent */
+/* System/device mode fallback when explicit theme attrs are absent */
 @media (prefers-color-scheme: dark) {
- :root:not([data-theme="light"]):not([data-theme="dark"]) {
+ html:not([data-theme="light"]):not([data-base-theme="light"]),
+ body:not([data-theme="light"]):not([data-base-theme="light"]) {
   --bg-a:#0b1220;
   --bg-b:#101c33;
   --text-main:#e2e8f0;
